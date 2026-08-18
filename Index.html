@@ -1,1 +1,721 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cik Ita Yammy - Dashboard Kewangan Ceria</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #FFFDF5;
+        }
+        
+        h1, h2, h3, .brand-font {
+            font-family: 'Fredoka', cursive;
+        }
 
+        .active-tab {
+            background-color: #FF6B6B;
+            color: white !important;
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-amber-50/40 text-slate-800 min-h-screen flex flex-col md:flex-row">
+
+    <!-- Sidebar / Navigasi Utama -->
+    <aside class="w-full md:w-72 bg-gradient-to-b from-rose-500 via-pink-500 to-amber-500 text-white p-5 flex flex-col justify-between shadow-xl">
+        <div>
+            <!-- Header Perniagaan -->
+            <div class="flex items-center gap-3 mb-8 bg-white/20 p-3 rounded-2xl backdrop-blur-md border border-white/30">
+                <div class="bg-amber-300 text-rose-600 w-12 h-12 rounded-full flex items-center justify-center text-2xl shadow-inner">
+                    <i class="fa-solid font-bold fa-ice-cream"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold tracking-wide leading-none text-white drop-shadow">Cik Ita Yammy</h1>
+                    <p class="text-xs text-amber-100 mt-1 font-medium">Ais Blended & Makanan Ringan</p>
+                </div>
+            </div>
+
+            <!-- Menu Sistem -->
+            <nav class="space-y-1.5 font-medium">
+                <button onclick="switchTab('ringkasan')" id="btn-ringkasan" class="tab-btn active-tab w-full flex items-center gap-3 px-4 py-3 rounded-xl transition duration-200 text-left text-amber-50 hover:bg-white/20">
+                    <i class="fa-solid fa-chart-pie text-lg w-6"></i> Ringkasan Utama
+                </button>
+                <button onclick="switchTab('jualan')" id="btn-jualan" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition duration-200 text-left text-amber-50 hover:bg-white/20">
+                    <i class="fa-solid fa-cash-register text-lg w-6"></i> Buku Jualan
+                </button>
+                <button onclick="switchTab('belian')" id="btn-belian" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition duration-200 text-left text-amber-50 hover:bg-white/20">
+                    <i class="fa-solid fa-cart-shopping text-lg w-6"></i> Buku Belian
+                </button>
+                <button onclick="switchTab('tunai')" id="btn-tunai" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition duration-200 text-left text-amber-50 hover:bg-white/20">
+                    <i class="fa-solid fa-wallet text-lg w-6"></i> Buku Tunai
+                </button>
+                <button onclick="switchTab('jurnal')" id="btn-jurnal" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition duration-200 text-left text-amber-50 hover:bg-white/20">
+                    <i class="fa-solid fa-book text-lg w-6"></i> Jurnal Am
+                </button>
+                <button onclick="switchTab('lejar')" id="btn-lejar" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition duration-200 text-left text-amber-50 hover:bg-white/20">
+                    <i class="fa-solid fa-folder-tree text-lg w-6"></i> Lejar Am
+                </button>
+                <button onclick="switchTab('imbangan')" id="btn-imbangan" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition duration-200 text-left text-amber-50 hover:bg-white/20">
+                    <i class="fa-solid fa-scale-balanced text-lg w-6"></i> Imbangan Duga
+                </button>
+                <button onclick="switchTab('pendapatan')" id="btn-pendapatan" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition duration-200 text-left text-amber-50 hover:bg-white/20">
+                    <i class="fa-solid fa-file-invoice-dollar text-lg w-6"></i> Penyata Pendapatan
+                </button>
+                <button onclick="switchTab('kedudukan')" id="btn-kedudukan" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition duration-200 text-left text-amber-50 hover:bg-white/20">
+                    <i class="fa-solid fa-building-columns text-lg w-6"></i> Penyata Kedudukan
+                </button>
+            </nav>
+        </div>
+
+        <div class="mt-8 pt-4 border-t border-white/20 text-xs text-center text-amber-100">
+            Sistem Kewangan Ceria &copy; 2026
+        </div>
+    </aside>
+
+    <!-- KANDUNGAN UTAMA -->
+    <main class="flex-1 p-4 md:p-8 overflow-y-auto max-h-screen">
+
+        <!-- TAB 1: RINGKASAN UTAMA -->
+        <section id="tab-ringkasan" class="tab-content space-y-6">
+            <div class="flex justify-between items-center bg-white p-6 rounded-3xl border-2 border-amber-200 shadow-sm">
+                <div>
+                    <h2 class="text-3xl font-bold text-rose-500">Selamat Datang, Cik Ita! 🎉</h2>
+                    <p class="text-slate-500 mt-1">Berikut ialah ringkasan prestasi perniagaan Ais Blended & Makanan Ringan anda.</p>
+                </div>
+            </div>
+
+            <!-- Kad Penunjuk Ringkasan Kewangan -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
+                <div class="bg-emerald-100/70 border-2 border-emerald-300 p-5 rounded-3xl shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <span class="text-emerald-700 font-semibold text-sm">Jumlah Jualan</span>
+                        <div class="w-10 h-10 bg-emerald-500 text-white rounded-2xl flex items-center justify-center">
+                            <i class="fa-solid fa-arrow-up-right-dots"></i>
+                        </div>
+                    </div>
+                    <p class="text-3xl font-bold text-emerald-800 mt-3" id="dash-jualan">RM 0.00</p>
+                </div>
+
+                <div class="bg-rose-100/70 border-2 border-rose-300 p-5 rounded-3xl shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <span class="text-rose-700 font-semibold text-sm">Jumlah Belian</span>
+                        <div class="w-10 h-10 bg-rose-500 text-white rounded-2xl flex items-center justify-center">
+                            <i class="fa-solid fa-cart-arrow-down"></i>
+                        </div>
+                    </div>
+                    <p class="text-3xl font-bold text-rose-800 mt-3" id="dash-belian">RM 0.00</p>
+                </div>
+
+                <div class="bg-amber-100/70 border-2 border-amber-300 p-5 rounded-3xl shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <span class="text-amber-700 font-semibold text-sm">Baki Tunai</span>
+                        <div class="w-10 h-10 bg-amber-500 text-white rounded-2xl flex items-center justify-center">
+                            <i class="fa-solid fa-coins"></i>
+                        </div>
+                    </div>
+                    <p class="text-3xl font-bold text-amber-800 mt-3" id="dash-tunai">RM 0.00</p>
+                </div>
+
+                <div id="dash-untung-card" class="bg-indigo-100/70 border-2 border-indigo-300 p-5 rounded-3xl shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <span class="text-indigo-700 font-semibold text-sm" id="dash-untung-label">Untung/Rugi Bersih</span>
+                        <div class="w-10 h-10 bg-indigo-500 text-white rounded-2xl flex items-center justify-center">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                    </div>
+                    <p class="text-3xl font-bold text-indigo-900 mt-3" id="dash-untung">RM 0.00</p>
+                </div>
+            </div>
+
+            <!-- Senarai Tindakan Cepat -->
+            <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
+                <h3 class="text-xl font-bold text-slate-700 mb-4">Tindakan Pantas</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <button onclick="switchTab('jualan')" class="p-4 bg-pink-50 hover:bg-pink-100 text-pink-700 rounded-2xl font-bold flex flex-col items-center justify-center gap-2 border border-pink-200 transition">
+                        <i class="fa-solid fa-plus-circle text-2xl"></i> + Rekod Jualan
+                    </button>
+                    <button onclick="switchTab('belian')" class="p-4 bg-amber-50 hover:bg-amber-100 text-amber-700 rounded-2xl font-bold flex flex-col items-center justify-center gap-2 border border-amber-200 transition">
+                        <i class="fa-solid fa-shopping-bag text-2xl"></i> + Rekod Belian
+                    </button>
+                    <button onclick="switchTab('tunai')" class="p-4 bg-teal-50 hover:bg-teal-100 text-teal-700 rounded-2xl font-bold flex flex-col items-center justify-center gap-2 border border-teal-200 transition">
+                        <i class="fa-solid fa-hand-holding-dollar text-2xl"></i> Rekod Tunai
+                    </button>
+                    <button onclick="switchTab('pendapatan')" class="p-4 bg-purple-50 hover:bg-purple-100 text-purple-700 rounded-2xl font-bold flex flex-col items-center justify-center gap-2 border border-purple-200 transition">
+                        <i class="fa-solid fa-calculator text-2xl"></i> Semak Untung Rugi
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: BUKU JUALAN -->
+        <section id="tab-jualan" class="tab-content hidden space-y-6">
+            <h2 class="text-2xl font-bold text-rose-600 flex items-center gap-2"><i class="fa-solid fa-cash-register"></i> Buku Jualan (Ais Blended & Snacks)</h2>
+            
+            <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
+                <form id="form-jualan" onsubmit="addJualan(event)" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Tarikh</label>
+                        <input type="date" id="jualan-tarikh" required class="w-full p-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-rose-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Item / Makanan / Minuman</label>
+                        <input type="text" id="jualan-item" placeholder="Contoh: Ice Blended Coklat" required class="w-full p-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-rose-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Jumlah (RM)</label>
+                        <input type="number" step="0.01" id="jualan-jumlah" placeholder="0.00" required class="w-full p-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-rose-400 outline-none">
+                    </div>
+                    <div class="flex items-end">
+                        <button type="submit" class="w-full bg-rose-500 hover:bg-rose-600 text-white font-bold py-2.5 rounded-xl transition shadow-md">
+                            <i class="fa-solid fa-plus"></i> Tambah Jualan
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+                <table class="w-full text-left border-collapse">
+                    <thead class="bg-rose-100 text-rose-800">
+                        <tr>
+                            <th class="p-4">Tarikh</th>
+                            <th class="p-4">Perkara / Item</th>
+                            <th class="p-4 text-right">Jumlah (RM)</th>
+                            <th class="p-4 text-center">Tindakan</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-jualan-body" class="divide-y divide-slate-100 text-sm">
+                        <!-- Data dimasukkan melalui JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- TAB 3: BUKU BELIAN -->
+        <section id="tab-belian" class="tab-content hidden space-y-6">
+            <h2 class="text-2xl font-bold text-amber-600 flex items-center gap-2"><i class="fa-solid fa-cart-shopping"></i> Buku Belian (Stok & Bahan Mentah)</h2>
+            
+            <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
+                <form id="form-belian" onsubmit="addBelian(event)" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Tarikh</label>
+                        <input type="date" id="belian-tarikh" required class="w-full p-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Butiran Bahan / Stok</label>
+                        <input type="text" id="belian-item" placeholder="Contoh: Serbuk Ice Blended, Cawan" required class="w-full p-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Jumlah Kos (RM)</label>
+                        <input type="number" step="0.01" id="belian-jumlah" placeholder="0.00" required class="w-full p-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-400 outline-none">
+                    </div>
+                    <div class="flex items-end">
+                        <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-2.5 rounded-xl transition shadow-md">
+                            <i class="fa-solid fa-plus"></i> Tambah Belian
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+                <table class="w-full text-left border-collapse">
+                    <thead class="bg-amber-100 text-amber-800">
+                        <tr>
+                            <th class="p-4">Tarikh</th>
+                            <th class="p-4">Perkara / Item</th>
+                            <th class="p-4 text-right">Jumlah Kos (RM)</th>
+                            <th class="p-4 text-center">Tindakan</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-belian-body" class="divide-y divide-slate-100 text-sm">
+                        <!-- Data dimasukkan melalui JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- TAB 4: BUKU TUNAI -->
+        <section id="tab-tunai" class="tab-content hidden space-y-6">
+            <h2 class="text-2xl font-bold text-teal-600 flex items-center gap-2"><i class="fa-solid fa-wallet"></i> Buku Tunai</h2>
+            
+            <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
+                <form id="form-tunai" onsubmit="addTunai(event)" class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Tarikh</label>
+                        <input type="date" id="tunai-tarikh" required class="w-full p-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-teal-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Keterangan</label>
+                        <input type="text" id="tunai-ket" placeholder="Contoh: Modal Awal / Beli Ais" required class="w-full p-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-teal-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Jenis Transaction</label>
+                        <select id="tunai-jenis" class="w-full p-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-teal-400 outline-none">
+                            <option value="masuk">Tunai Masuk (Debit)</option>
+                            <option value="keluar">Tunai Keluar (Kredit)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Jumlah (RM)</label>
+                        <input type="number" step="0.01" id="tunai-jumlah" placeholder="0.00" required class="w-full p-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-teal-400 outline-none">
+                    </div>
+                    <div class="flex items-end">
+                        <button type="submit" class="w-full bg-teal-500 hover:bg-teal-600 text-white font-bold py-2.5 rounded-xl transition shadow-md">
+                            <i class="fa-solid fa-plus"></i> Rekod Tunai
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+                <table class="w-full text-left border-collapse">
+                    <thead class="bg-teal-100 text-teal-800">
+                        <tr>
+                            <th class="p-4">Tarikh</th>
+                            <th class="p-4">Keterangan</th>
+                            <th class="p-4 text-right">Tunai Masuk (RM)</th>
+                            <th class="p-4 text-right">Tunai Keluar (RM)</th>
+                            <th class="p-4 text-center">Tindakan</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-tunai-body" class="divide-y divide-slate-100 text-sm">
+                        <!-- Data dimasukkan melalui JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- TAB 5: JURNAL AM -->
+        <section id="tab-jurnal" class="tab-content hidden space-y-6">
+            <h2 class="text-2xl font-bold text-indigo-600 flex items-center gap-2"><i class="fa-solid fa-book"></i> Jurnal Am</h2>
+            
+            <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
+                <form id="form-jurnal" onsubmit="addJurnal(event)" class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Tarikh</label>
+                        <input type="date" id="jurnal-tarikh" required class="w-full p-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Butiran / Keterangan</label>
+                        <input type="text" id="jurnal-ket" placeholder="Contoh: Bawa masuk perabot" required class="w-full p-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Akaun Debit</label>
+                        <input type="text" id="jurnal-debit-acc" placeholder="Akaun Perabot" required class="w-full p-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Akaun Kredit</label>
+                        <input type="text" id="jurnal-kredit-acc" placeholder="Akaun Modal" required class="w-full p-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Jumlah (RM)</label>
+                        <input type="number" step="0.01" id="jurnal-jumlah" placeholder="0.00" required class="w-full p-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-400 outline-none">
+                    </div>
+                    <div class="md:col-span-5 flex justify-end">
+                        <button type="submit" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold px-6 py-2.5 rounded-xl transition shadow-md">
+                            <i class="fa-solid fa-plus"></i> Catat Jurnal
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+                <table class="w-full text-left border-collapse">
+                    <thead class="bg-indigo-100 text-indigo-800">
+                        <tr>
+                            <th class="p-4">Tarikh</th>
+                            <th class="p-4">Butiran</th>
+                            <th class="p-4 text-right">Debit (RM)</th>
+                            <th class="p-4 text-right">Kredit (RM)</th>
+                            <th class="p-4 text-center">Tindakan</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-jurnal-body" class="divide-y divide-slate-100 text-sm">
+                        <!-- Data dimasukkan melalui JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- TAB 6: LEJAR AM -->
+        <section id="tab-lejar" class="tab-content hidden space-y-6">
+            <h2 class="text-2xl font-bold text-purple-600 flex items-center gap-2"><i class="fa-solid fa-folder-tree"></i> Lejar Am</h2>
+            <div id="lejar-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Dijana secara dinamik oleh Javascript -->
+            </div>
+        </section>
+
+        <!-- TAB 7: IMBANGAN DUGA -->
+        <section id="tab-imbangan" class="tab-content hidden space-y-6">
+            <h2 class="text-2xl font-bold text-blue-600 flex items-center gap-2"><i class="fa-solid fa-scale-balanced"></i> Imbangan Duga</h2>
+            <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden p-6">
+                <p class="text-sm text-slate-500 mb-4">Ringkasan baki akhir bagi memastikan jumlah Debit dan Kredit seimbang.</p>
+                <table class="w-full text-left border-collapse">
+                    <thead class="bg-blue-100 text-blue-800">
+                        <tr>
+                            <th class="p-4">Akaun</th>
+                            <th class="p-4 text-right">Debit (RM)</th>
+                            <th class="p-4 text-right">Kredit (RM)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-imbangan-body" class="divide-y divide-slate-100 text-sm">
+                        <!-- Data ringkasan -->
+                    </tbody>
+                    <tfoot class="bg-slate-100 font-bold">
+                        <tr>
+                            <td class="p-4">JUMLAH KESELURUHAN</td>
+                            <td class="p-4 text-right text-blue-700" id="imb-total-debit">0.00</td>
+                            <td class="p-4 text-right text-blue-700" id="imb-total-kredit">0.00</td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div id="imb-status" class="mt-4 p-3 rounded-xl text-center font-bold"></div>
+            </div>
+        </section>
+
+        <!-- TAB 8: PENYATA PENDAPATAN (UNTUNG / RUGI) -->
+        <section id="tab-pendapatan" class="tab-content hidden space-y-6">
+            <div class="flex justify-between items-center">
+                <h2 class="text-2xl font-bold text-emerald-600 flex items-center gap-2"><i class="fa-solid fa-file-invoice-dollar"></i> Penyata Pendapatan (Untung / Rugi)</h2>
+                <span class="text-xs font-semibold bg-emerald-100 text-emerald-800 px-3 py-1.5 rounded-full">Kiraan Automatik</span>
+            </div>
+
+            <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 max-w-2xl mx-auto space-y-4">
+                <div class="text-center border-b pb-4">
+                    <h3 class="text-xl font-bold text-rose-500">CIK ITA YAMMY</h3>
+                    <p class="text-sm text-slate-500">Penyata Pendapatan Bagi Period Semasa</p>
+                </div>
+
+                <div class="space-y-3">
+                    <div class="flex justify-between font-semibold text-slate-700">
+                        <span>Hasil Jualan</span>
+                        <span id="pp-jualan" class="text-emerald-600">RM 0.00</span>
+                    </div>
+                    <div class="flex justify-between text-slate-600 pl-4">
+                        <span>Tolak: Kos Belian (Bahan Mentah)</span>
+                        <span id="pp-belian" class="text-rose-500">(RM 0.00)</span>
+                    </div>
+                    <hr>
+                    <div class="flex justify-between font-bold text-lg pt-2 border-t border-slate-300" id="pp-box-result">
+                        <span id="pp-title-result">UNTUNG BERSIH</span>
+                        <span id="pp-total-result">RM 0.00</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 9: PENYATA KEDUDUKAN KEWANGAN -->
+        <section id="tab-kedudukan" class="tab-content hidden space-y-6">
+            <h2 class="text-2xl font-bold text-purple-600 flex items-center gap-2"><i class="fa-solid fa-building-columns"></i> Penyata Kedudukan Kewangan (Kunci Kira-Kira)</h2>
+
+            <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 max-w-3xl mx-auto space-y-6">
+                <div class="text-center border-b pb-4">
+                    <h3 class="text-xl font-bold text-rose-500">CIK ITA YAMMY</h3>
+                    <p class="text-sm text-slate-500">Penyata Kedudukan Kewangan</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- ASET -->
+                    <div class="space-y-3 border-r pr-4">
+                        <h4 class="font-bold text-purple-700 border-b pb-1">ASET</h4>
+                        <div class="flex justify-between text-sm">
+                            <span>Baki Tunai Di Tangan</span>
+                            <span id="pkk-tunai">RM 0.00</span>
+                        </div>
+                        <div class="flex justify-between font-bold text-slate-800 border-t pt-2">
+                            <span>JUMLAH ASET</span>
+                            <span id="pkk-total-aset" class="text-purple-600">RM 0.00</span>
+                        </div>
+                    </div>
+
+                    <!-- EKUITI & LIABILITI -->
+                    <div class="space-y-3">
+                        <h4 class="font-bold text-purple-700 border-b pb-1">EKUITI PEMILIK</h4>
+                        <div class="flex justify-between text-sm">
+                            <span>Untung / (Rugi) Bersih</span>
+                            <span id="pkk-untung">RM 0.00</span>
+                        </div>
+                        <div class="flex justify-between font-bold text-slate-800 border-t pt-2">
+                            <span>JUMLAH EKUITI</span>
+                            <span id="pkk-total-ekuiti" class="text-purple-600">RM 0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- LOGIK JAVASCRIPT & DATA STORAGE -->
+    <script>
+        // Inisialisasi Data dari LocalStorage atau default
+        let dataJualan = JSON.parse(localStorage.getItem('ita_jualan')) || [
+            { id: 1, tarikh: '2026-08-01', item: 'Ais Blended Coklat (10 cawan)', jumlah: 50.00 },
+            { id: 2, tarikh: '2026-08-02', item: 'Keropok Lekor & Snacks', jumlah: 35.00 }
+        ];
+
+        let dataBelian = JSON.parse(localStorage.getItem('ita_belian')) || [
+            { id: 1, tarikh: '2026-08-01', item: 'Serbuk Ais Blended & Cawan', jumlah: 30.00 }
+        ];
+
+        let dataTunai = JSON.parse(localStorage.getItem('ita_tunai')) || [
+            { id: 1, tarikh: '2026-08-01', ket: 'Modal Awal Tunai', jenis: 'masuk', jumlah: 100.00 },
+            { id: 2, tarikh: '2026-08-01', ket: 'Jualan Ais Blended', jenis: 'masuk', jumlah: 50.00 },
+            { id: 3, tarikh: '2026-08-01', ket: 'Beli Serbuk & Cawan', jenis: 'keluar', jumlah: 30.00 }
+        ];
+
+        let dataJurnal = JSON.parse(localStorage.getItem('ita_jurnal')) || [
+            { id: 1, tarikh: '2026-08-01', ket: 'Bawa masuk mesin blender', debit: 'Mesin Blender', kredit: 'Modal', jumlah: 250.00 }
+        ];
+
+        // Simpan data
+        function saveData() {
+            localStorage.setItem('ita_jualan', JSON.stringify(dataJualan));
+            localStorage.setItem('ita_belian', JSON.stringify(dataBelian));
+            localStorage.setItem('ita_tunai', JSON.stringify(dataTunai));
+            localStorage.setItem('ita_jurnal', JSON.stringify(dataJurnal));
+            updateAll();
+        }
+
+        // Tukar Tab Navigasi
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active-tab'));
+            
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+            document.getElementById(`btn-${tabId}`).classList.add('active-tab');
+        }
+
+        // --- TAMBAH DATA ---
+        function addJualan(e) {
+            e.preventDefault();
+            const tarikh = document.getElementById('jualan-tarikh').value;
+            const item = document.getElementById('jualan-item').value;
+            const jumlah = parseFloat(document.getElementById('jualan-jumlah').value);
+
+            dataJualan.push({ id: Date.now(), tarikh, item, jumlah });
+            // Automatik catat masuk Tunai
+            dataTunai.push({ id: Date.now()+1, tarikh, ket: `Jualan: ${item}`, jenis: 'masuk', jumlah });
+
+            saveData();
+            e.target.reset();
+        }
+
+        function addBelian(e) {
+            e.preventDefault();
+            const tarikh = document.getElementById('belian-tarikh').value;
+            const item = document.getElementById('belian-item').value;
+            const jumlah = parseFloat(document.getElementById('belian-jumlah').value);
+
+            dataBelian.push({ id: Date.now(), tarikh, item, jumlah });
+            // Automatik catat keluar Tunai
+            dataTunai.push({ id: Date.now()+1, tarikh, ket: `Belian: ${item}`, jenis: 'keluar', jumlah });
+
+            saveData();
+            e.target.reset();
+        }
+
+        function addTunai(e) {
+            e.preventDefault();
+            const tarikh = document.getElementById('tunai-tarikh').value;
+            const ket = document.getElementById('tunai-ket').value;
+            const jenis = document.getElementById('tunai-jenis').value;
+            const jumlah = parseFloat(document.getElementById('tunai-jumlah').value);
+
+            dataTunai.push({ id: Date.now(), tarikh, ket, jenis, jumlah });
+            saveData();
+            e.target.reset();
+        }
+
+        function addJurnal(e) {
+            e.preventDefault();
+            const tarikh = document.getElementById('jurnal-tarikh').value;
+            const ket = document.getElementById('jurnal-ket').value;
+            const debit = document.getElementById('jurnal-debit-acc').value;
+            const kredit = document.getElementById('jurnal-kredit-acc').value;
+            const jumlah = parseFloat(document.getElementById('jurnal-jumlah').value);
+
+            dataJurnal.push({ id: Date.now(), tarikh, ket, debit, kredit, jumlah });
+            saveData();
+            e.target.reset();
+        }
+
+        // Hapus Data
+        function deleteItem(type, id) {
+            if(type==='jualan') dataJualan = dataJualan.filter(x => x.id !== id);
+            if(type==='belian') dataBelian = dataBelian.filter(x => x.id !== id);
+            if(type==='tunai') dataTunai = dataTunai.filter(x => x.id !== id);
+            if(type==='jurnal') dataJurnal = dataJurnal.filter(x => x.id !== id);
+            saveData();
+        }
+
+        // --- UPDATE & RENDER TAMPILAN ---
+        function updateAll() {
+            // 1. Render Jadual Jualan
+            const tbJualan = document.getElementById('table-jualan-body');
+            tbJualan.innerHTML = '';
+            let totalJualan = 0;
+            dataJualan.forEach(i => {
+                totalJualan += i.jumlah;
+                tbJualan.innerHTML += `
+                    <tr>
+                        <td class="p-4">${i.tarikh}</td>
+                        <td class="p-4 font-medium">${i.item}</td>
+                        <td class="p-4 text-right font-bold text-emerald-600">RM ${i.jumlah.toFixed(2)}</td>
+                        <td class="p-4 text-center"><button onclick="deleteItem('jualan', ${i.id})" class="text-rose-500 hover:text-rose-700"><i class="fa-solid fa-trash"></i></button></td>
+                    </tr>`;
+            });
+
+            // 2. Render Jadual Belian
+            const tbBelian = document.getElementById('table-belian-body');
+            tbBelian.innerHTML = '';
+            let totalBelian = 0;
+            dataBelian.forEach(i => {
+                totalBelian += i.jumlah;
+                tbBelian.innerHTML += `
+                    <tr>
+                        <td class="p-4">${i.tarikh}</td>
+                        <td class="p-4 font-medium">${i.item}</td>
+                        <td class="p-4 text-right font-bold text-rose-500">RM ${i.jumlah.toFixed(2)}</td>
+                        <td class="p-4 text-center"><button onclick="deleteItem('belian', ${i.id})" class="text-rose-500 hover:text-rose-700"><i class="fa-solid fa-trash"></i></button></td>
+                    </tr>`;
+            });
+
+            // 3. Render Jadual Tunai
+            const tbTunai = document.getElementById('table-tunai-body');
+            tbTunai.innerHTML = '';
+            let totalTunaiMasuk = 0;
+            let totalTunaiKeluar = 0;
+            dataTunai.forEach(i => {
+                if(i.jenis === 'masuk') totalTunaiMasuk += i.jumlah;
+                else totalTunaiKeluar += i.jumlah;
+
+                tbTunai.innerHTML += `
+                    <tr>
+                        <td class="p-4">${i.tarikh}</td>
+                        <td class="p-4 font-medium">${i.ket}</td>
+                        <td class="p-4 text-right font-semibold text-emerald-600">${i.jenis === 'masuk' ? 'RM ' + i.jumlah.toFixed(2) : '-'}</td>
+                        <td class="p-4 text-right font-semibold text-rose-500">${i.jenis === 'keluar' ? 'RM ' + i.jumlah.toFixed(2) : '-'}</td>
+                        <td class="p-4 text-center"><button onclick="deleteItem('tunai', ${i.id})" class="text-rose-500 hover:text-rose-700"><i class="fa-solid fa-trash"></i></button></td>
+                    </tr>`;
+            });
+            let bakiTunai = totalTunaiMasuk - totalTunaiKeluar;
+
+            // 4. Render Jurnal Am
+            const tbJurnal = document.getElementById('table-jurnal-body');
+            tbJurnal.innerHTML = '';
+            dataJurnal.forEach(i => {
+                tbJurnal.innerHTML += `
+                    <tr>
+                        <td class="p-4">${i.tarikh}</td>
+                        <td class="p-4 font-medium">${i.ket}<br><span class="text-xs text-slate-400">Dr: ${i.debit} | Kr: ${i.kredit}</span></td>
+                        <td class="p-4 text-right">RM ${i.jumlah.toFixed(2)}</td>
+                        <td class="p-4 text-right">RM ${i.jumlah.toFixed(2)}</td>
+                        <td class="p-4 text-center"><button onclick="deleteItem('jurnal', ${i.id})" class="text-rose-500 hover:text-rose-700"><i class="fa-solid fa-trash"></i></button></td>
+                    </tr>`;
+            });
+
+            // 5. Kira Untung / Rugi
+            let untungRugi = totalJualan - totalBelian;
+
+            // Update Ringkasan Dashboard
+            document.getElementById('dash-jualan').innerText = `RM ${totalJualan.toFixed(2)}`;
+            document.getElementById('dash-belian').innerText = `RM ${totalBelian.toFixed(2)}`;
+            document.getElementById('dash-tunai').innerText = `RM ${bakiTunai.toFixed(2)}`;
+            
+            const untungElem = document.getElementById('dash-untung');
+            const untungCard = document.getElementById('dash-untung-card');
+            const untungLabel = document.getElementById('dash-untung-label');
+
+            if(untungRugi >= 0) {
+                untungElem.innerText = `RM ${untungRugi.toFixed(2)}`;
+                untungElem.className = "text-3xl font-bold text-emerald-800 mt-3";
+                untungLabel.innerText = "Untung Bersih 🎉";
+                untungCard.className = "bg-emerald-100/70 border-2 border-emerald-300 p-5 rounded-3xl shadow-sm";
+            } else {
+                untungElem.innerText = `-RM ${Math.abs(untungRugi).toFixed(2)}`;
+                untungElem.className = "text-3xl font-bold text-rose-800 mt-3";
+                untungLabel.innerText = "Rugi Bersih ⚠️";
+                untungCard.className = "bg-rose-100/70 border-2 border-rose-300 p-5 rounded-3xl shadow-sm";
+            }
+
+            // 6. Render Lejar Am
+            const lejarContainer = document.getElementById('lejar-container');
+            lejarContainer.innerHTML = `
+                <div class="bg-white p-5 rounded-3xl border border-slate-200">
+                    <h3 class="font-bold text-purple-700 border-b pb-2 mb-3">Akaun Jualan</h3>
+                    <div class="flex justify-between text-sm"><span>Kredit (Jumlah Jualan):</span><span class="font-bold text-emerald-600">RM ${totalJualan.toFixed(2)}</span></div>
+                </div>
+                <div class="bg-white p-5 rounded-3xl border border-slate-200">
+                    <h3 class="font-bold text-purple-700 border-b pb-2 mb-3">Akaun Belian</h3>
+                    <div class="flex justify-between text-sm"><span>Debit (Jumlah Belian):</span><span class="font-bold text-rose-500">RM ${totalBelian.toFixed(2)}</span></div>
+                </div>
+                <div class="bg-white p-5 rounded-3xl border border-slate-200">
+                    <h3 class="font-bold text-purple-700 border-b pb-2 mb-3">Akaun Tunai</h3>
+                    <div class="flex justify-between text-sm"><span>Baki Bawa Ke Hadapan:</span><span class="font-bold text-teal-600">RM ${bakiTunai.toFixed(2)}</span></div>
+                </div>
+            `;
+
+            // 7. Render Imbangan Duga
+            const tbImb = document.getElementById('table-imbangan-body');
+            tbImb.innerHTML = `
+                <tr><td class="p-4">Akaun Tunai</td><td class="p-4 text-right">RM ${bakiTunai.toFixed(2)}</td><td class="p-4 text-right">-</td></tr>
+                <tr><td class="p-4">Akaun Belian</td><td class="p-4 text-right">RM ${totalBelian.toFixed(2)}</td><td class="p-4 text-right">-</td></tr>
+                <tr><td class="p-4">Akaun Jualan</td><td class="p-4 text-right">-</td><td class="p-4 text-right">RM ${totalJualan.toFixed(2)}</td></tr>
+            `;
+            let totalDebitImb = bakiTunai + totalBelian;
+            let totalKreditImb = totalJualan;
+            
+            document.getElementById('imb-total-debit').innerText = `RM ${totalDebitImb.toFixed(2)}`;
+            document.getElementById('imb-total-kredit').innerText = `RM ${totalKreditImb.toFixed(2)}`;
+
+            const statusImb = document.getElementById('imb-status');
+            if(Math.abs(totalDebitImb - totalKreditImb) < 0.01) {
+                statusImb.className = "mt-4 p-3 rounded-xl text-center font-bold bg-emerald-100 text-emerald-700";
+                statusImb.innerText = "✓ Imbangan Duga Seimbang!";
+            } else {
+                statusImb.className = "mt-4 p-3 rounded-xl text-center font-bold bg-amber-100 text-amber-700";
+                statusImb.innerText = "⚠️ Terdapat perbezaan antara Debit & Kredit (Perlu semak semula transaksi tunai/jurnal)";
+            }
+
+            // 8. Penyata Pendapatan
+            document.getElementById('pp-jualan').innerText = `RM ${totalJualan.toFixed(2)}`;
+            document.getElementById('pp-belian').innerText = `(RM ${totalBelian.toFixed(2)})`;
+            
+            const ppTitle = document.getElementById('pp-title-result');
+            const ppTotal = document.getElementById('pp-total-result');
+            const ppBox = document.getElementById('pp-box-result');
+
+            if(untungRugi >= 0) {
+                ppTitle.innerText = "UNTUNG BERSIH";
+                ppTotal.innerText = `RM ${untungRugi.toFixed(2)}`;
+                ppBox.className = "flex justify-between font-bold text-lg pt-2 border-t-2 border-emerald-500 text-emerald-700";
+            } else {
+                ppTitle.innerText = "RUGI BERSIH";
+                ppTotal.innerText = `RM ${Math.abs(untungRugi).toFixed(2)}`;
+                ppBox.className = "flex justify-between font-bold text-lg pt-2 border-t-2 border-rose-500 text-rose-700";
+            }
+
+            // 9. Penyata Kedudukan Kewangan
+            document.getElementById('pkk-tunai').innerText = `RM ${bakiTunai.toFixed(2)}`;
+            document.getElementById('pkk-total-aset').innerText = `RM ${bakiTunai.toFixed(2)}`;
+            document.getElementById('pkk-untung').innerText = `RM ${untungRugi.toFixed(2)}`;
+            document.getElementById('pkk-total-ekuiti').innerText = `RM ${untungRugi.toFixed(2)}`;
+        }
+
+        // Tetapkan tarikh hari ini pada input tarikh secara automatik
+        document.addEventListener("DOMContentLoaded", () => {
+            const today = new Date().toISOString().split('T')[0];
+            document.querySelectorAll('input[type="date"]').forEach(input => input.value = today);
+            updateAll();
+        });
+    </script>
+</body>
+</html>
